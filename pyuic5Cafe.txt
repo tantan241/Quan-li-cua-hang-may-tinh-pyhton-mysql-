@@ -1,0 +1,13 @@
+pyuic5 -x DangNhap.ui -o DangNhap.py
+
+pyuic5 -x LuaChon.ui -o LuaChonGui.py
+
+pyuic5 -x NhanVien.ui -o NhanVienGui.py
+
+pyuic5 -x DoBanGui.ui -o DoBanGui.py
+
+pyuic5 -x TaoHoaDonGui.ui -o TaoHoaDonGui.py
+
+pyuic5 -x KhachHangGui.ui -o KhachHangGui.py
+
+pyuic5 -x HoaDonGui.ui -o HoaDonGui.py

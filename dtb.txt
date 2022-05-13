@@ -1,0 +1,95 @@
+create table nhanvien(
+    manhanvien varchar(10) PRIMARY key,
+    tennhanvien varchar2(40),
+    gioitinh varchar2(4),
+    sodienthoai int,
+    socccd int,
+    diachi varchar2(200),
+    taikhoan varchar(20) not null,
+    matkhau varchar(20) not null,
+    quyen int
+);
+CREATE table khachhang(
+    makhachhang varchar(30) PRIMARY key,
+    tenkhachhang varchar2(40),
+    sodienthoai int,
+    diachi varchar2(200)
+);
+create table nhacungcap(
+    manhacungcap VARCHAR(10) primary key,
+    tennhacungcap varchar2(200),
+    sodienthoai int,
+    diachi varchar2(200)
+);
+CREATE SEQUENCE seq_person
+    MINVALUE 1
+    START WITH 1
+    INCREMENT BY 1
+    CACHE 10;
+    --sinh mã ngẫu nhiên
+----------------------------
+CREATE table sanpham (
+    masanpham int PRIMARY key,
+    tensanpham varchar2(255),
+    dongia float,
+    donvi VARCHAR2(30),
+    soluongcon int,
+    manhacungcap varchar2(10),
+    CONSTRAINT fk_tbsp_tbncc
+    FOREIGN KEY (manhacungcap)
+    REFERENCES nhacungcap (manhacungcap)
+);
+create table hoadon(
+    mahoadon varchar(30) primary key,
+    thoigian date,
+    tongtien float,
+    tienkhachdua float,
+    tientralai float,
+    makhachhang varchar(30),
+    manhanvien varchar(10),
+    CONSTRAINT fk_tbhd_tbkh
+    FOREIGN key (makhachhang)
+    REFERENCES khachhang (makhachhang),
+    CONSTRAINT fk_tbhd_tbnv
+    FOREIGN key (manhanvien)
+    REFERENCES nhanvien (manhanvien)
+);
+create table chitiethoadon(
+    mahoadon varchar(30),
+    masanpham int,
+    PRIMARY key(mahoadon,masanpham),
+    constraint fk_tbcthd_tbhd
+    FOREIGN key (mahoadon)
+    REFERENCES hoadon(mahoadon),
+    constraint fk_tbcthd_tbsp
+    FOREIGN key (masanpham)
+    REFERENCES sanpham(masanpham),
+    soluong int,
+    thanhtien float
+);
+create table phieunhap(
+    maphieunhap varchar(30) primary key,
+    manhanvien varchar(10),
+    manhacungcap varchar(10),
+    thoigian date, 
+    tongtien float;
+    constraint lk_tbpn_tbnv
+    foreign key (manhanvien)
+    REFERENCES nhanvien(manhanvien),
+    constraint lk_tbpn_tbncc
+    foreign key (manhacungcap)
+    REFERENCES nhacungcap(manhacungcap)
+);
+create table chitietphieunhap(
+    maphieunhap varchar(30),
+    masanpham int ,
+    PRIMARY key(maphieunhap,masanpham),
+    constraint lk_tbctpn_tbpn
+    foreign key (maphieunhap)
+    REFERENCES phieunhap(maphieunhap),
+    constraint lk_tbctpn_tbsp
+    foreign key (masanpham)
+    REFERENCES sanpham(masanpham)
+);
+alter table chitietphieunhap add chitiettien float;
+alter TABLE chitietphieunhap add  soluongnhap INT;
