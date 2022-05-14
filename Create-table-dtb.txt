@@ -1,40 +1,36 @@
 create table nhanvien(
     manhanvien varchar(10) PRIMARY key,
-    tennhanvien varchar2(40),
-    gioitinh varchar2(4),
+    tennhanvien nvarchar(40),
+    gioitinh nvarchar(4),
     sodienthoai int,
     socccd int,
-    diachi varchar2(200),
+    diachi nvarchar(200),
     taikhoan varchar(20) not null,
     matkhau varchar(20) not null,
     quyen int
 );
+insert into nhanvien values('NV01','Tân','Nam',0984035114,082828228,'Hưng Yên','tan2001','1111',0);
 CREATE table khachhang(
     makhachhang varchar(30) PRIMARY key,
-    tenkhachhang varchar2(40),
+    tenkhachhang nvarchar(40),
     sodienthoai int,
-    diachi varchar2(200)
+    diachi nvarchar(200)
 );
 create table nhacungcap(
     manhacungcap VARCHAR(10) primary key,
-    tennhacungcap varchar2(200),
+    tennhacungcap nvarchar(200),
     sodienthoai int,
-    diachi varchar2(200)
+    diachi nvarchar(200)
 );
-CREATE SEQUENCE seq_person
-    MINVALUE 1
-    START WITH 1
-    INCREMENT BY 1
-    CACHE 10;
-    --sinh mã ngẫu nhiên
+
 ----------------------------
 CREATE table sanpham (
     masanpham int PRIMARY key,
-    tensanpham varchar2(255),
+    tensanpham nvarchar(255),
     dongia float,
-    donvi VARCHAR2(30),
+    donvi nvarchar(30),
     soluongcon int,
-    manhacungcap varchar2(10),
+    manhacungcap varchar(10),
     CONSTRAINT fk_tbsp_tbncc
     FOREIGN KEY (manhacungcap)
     REFERENCES nhacungcap (manhacungcap)
@@ -72,7 +68,7 @@ create table phieunhap(
     manhanvien varchar(10),
     manhacungcap varchar(10),
     thoigian date, 
-    tongtien float;
+    tongtien float,
     constraint lk_tbpn_tbnv
     foreign key (manhanvien)
     REFERENCES nhanvien(manhanvien),
@@ -83,6 +79,8 @@ create table phieunhap(
 create table chitietphieunhap(
     maphieunhap varchar(30),
     masanpham int ,
+    soluongnhap int,
+    chitiettien float,
     PRIMARY key(maphieunhap,masanpham),
     constraint lk_tbctpn_tbpn
     foreign key (maphieunhap)
@@ -91,5 +89,4 @@ create table chitietphieunhap(
     foreign key (masanpham)
     REFERENCES sanpham(masanpham)
 );
-alter table chitietphieunhap add chitiettien float;
-alter TABLE chitietphieunhap add  soluongnhap INT;
+
